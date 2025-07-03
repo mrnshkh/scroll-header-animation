@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Меню — как calipso.by ++</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: sans-serif;
+      padding-top: 100px;
+    }
+
+    .headpic {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      z-index: 9999;
+      padding: 20px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      transform: translateY(-100%);
+      transition: transform 0.4s ease;
+    }
+
+    .headpic.show {
+      transform: translateY(0);
+    }
+
+    .headpic.animate-again {
+      transition: none;
+    }
+
+    .content {
+      height: 3000px;
+      padding: 20px;
+      background: linear-gradient(#f7f7f7, #ddd);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="headpic" id="header">🔴 Меню: остаётся всегда, но с анимацией при спуске</div>
+
+  <div class="content">
+    <p>✅ Меню появляется при скролле вниз</p>
+    <p>✅ Не исчезает при скролле вверх, даже до самого верха</p>
+    <p>✅ При КАЖДОМ новом скролле вниз — анимация</p>
+    <p>🔁 Всё повторяется бесконечно</p>
+  </div>
+
+  <script>
+    const header = document.getElementById('header');
+    let lastScroll = window.scrollY;
+    let justReachedTop = true;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+
+      if (currentScroll === 0) {
+        justReachedTop = true;
+        return;
+      }
+
+      if (justReachedTop && currentScroll > 10) {
+        // Каждый раз при скролле вниз от самого верха → проигрываем анимацию заново
+        header.classList.remove('show');
+        header.classList.add('animate-again');
+        void header.offsetWidth;
+        header.classList.remove('animate-again');
+        header.classList.add('show');
+        justReachedTop = false;
+      } else if (!header.classList.contains('show')) {
+        header.classList.add('show');
+      }
+
+      lastScroll = currentScroll;
+    });
+  </script>
+
+</body>
+</html>
