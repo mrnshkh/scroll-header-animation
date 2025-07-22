@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Бронирование Meet & Greet</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+</head>
+<body>
+  <div class="theme-toggle">
+    <label>
+      <input type="checkbox" id="themeSwitcher" />
+      🌙 Темная тема
+    </label>
+  </div>
+
+  <main>
+    <form id="bookingForm">
+      <!-- Шаг 1 -->
+      <div class="step active">
+        <h2>Шаг 1: Информация о рейсе</h2>
+        <select id="airport" required>
+          <option value="">Выберите аэропорт</option>
+          <option value="dubai@partner.com">Дубай (DXB)</option>
+          <option value="istanbul@partner.com">Стамбул (IST)</option>
+          <option value="tashkent@partner.com">Ташкент (TAS)</option>
+        </select>
+        <input type="date" id="date" required />
+        <input type="text" id="flight" placeholder="Номер рейса" required />
+        <button type="button" onclick="nextStep()">Далее</button>
+      </div>
+
+      <!-- Шаг 2 -->
+      <div class="step">
+        <h2>Шаг 2: Контактные данные</h2>
+        <input type="text" id="name" placeholder="ФИО" required pattern="^[А-Яа-яA-Za-z\s]+$" />
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="tel" id="phone" placeholder="Телефон" required />
+        <input type="number" id="people" placeholder="Количество пассажиров" min="1" value="1" required />
+        <select id="option" required>
+          <option value="">Выберите услугу</option>
+          <option value="Meet & Greet">Meet & Greet</option>
+          <option value="Fast Track">Fast Track</option>
+          <option value="Lounge Access">Lounge Access</option>
+        </select>
+        <button type="button" onclick="prevStep()">Назад</button>
+        <button type="button" onclick="nextStep()">Далее</button>
+      </div>
+
+      <!-- Шаг 3 -->
+      <div class="step">
+        <h2>Шаг 3: Оплата</h2>
+        <p>Подтвердите бронь и произведите оплату через PayPal:</p>
+        <div id="paypal-button-container"></div>
+        <button type="button" onclick="prevStep()">Назад</button>
+      </div>
+    </form>
+
+    <!-- Личный кабинет -->
+    <section id="cabinet">
+      <h2>Мои бронирования</h2>
+      <ul id="bookingList"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
